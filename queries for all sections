@@ -1,0 +1,215 @@
+        
+
+create database Assignment;
+use Assignment;
+show databases;
+create table employee(
+employee_id mediumint primary key,
+last_name varchar(25) not null,
+first_name varchar(25),
+job_id smallint,
+manager_id mediumint,
+hire_date date not null,
+salary double check(salary<100000),
+commission double,
+department_id smallint,
+foreign key  (job_id) references job(job_id) on delete restrict on update cascade,
+foreign key (manager_id) references employee(employee_id) on delete restrict on update cascade,
+foreign key (department_id) references department(department_id) on delete restrict on update cascade
+);
+
+
+create table department(
+department_id smallint primary key,
+dname varchar(15) unique,
+location smallint,
+foreign key (location) references location(location_id) on delete restrict on update cascade
+);
+drop table department;
+
+
+create table location(
+location_id smallint primary key,
+regional_group varchar(15)
+);
+
+
+create table job(
+job_id smallint primary key,
+funtion varchar(15) unique
+);
+
+create table salary_grade(
+grade_id smallint primary key,
+lower_sal double(9,2),
+upper_sal double(9,2) check (upper_sal<=10000000)
+);
+
+
+show tables;
+
+insert into location values(122,'NEW YORK');
+insert into location values(124,'DALLAS');
+insert into location values(123,'CHICAGO');
+insert into location values(169,'BOSTON');
+DESCRIBE LOCATION;
+select * from location;
+
+
+insert into department values(10,'ACCOUNTING',122);
+insert into department values(20,'REASEARCH',124);
+insert into department values(30,'SALES',123);
+insert into department values(40,'OPERATIONS',169);
+select * from department;
+
+insert into job values(667,' CLERK');
+insert into job values(668,' STAFF');
+insert into job values(669 ,'ANALYST');
+insert into job values(670 ,'SALESPERSON');
+insert into job values(671,' MANAGER');
+insert into job values(672,'PRESIDENT');
+select * from job;
+
+
+insert into salary_grade values(1, 7000, 12000);
+insert into salary_grade values(2, 12001, 14000);
+insert into salary_grade values(3, 14001, 20000);
+insert into salary_grade values(4, 20001, 30000);
+insert into salary_grade values(5, 30001, 99999);
+select * from salary_grade;
+
+set foreign_key_checks=0;
+insert into employee values(7449,'ALLEN','KEVIN',670,7698,'2001-01-10',16000,3000,30);
+insert into employee values(7369 ,'SMITH', 'JOHN' ,667, 7902, '2009-02-01',8000,NULL,20);
+insert into employee values(7499,'ALLEN', 'KEVIN',670 ,7698 ,'2019-12-01', 16000 ,3000, 30);
+insert into employee values(7505,'DOYLE' ,'JEAN', 671, 7839, '2011-01-21', 28500,NULL, 30); 
+insert into employee values(7506,'DENNIS' , 'LYNN', 671, 7839, '213-02-15', 27500,NULL, 30);
+insert into employee values(7507,'BAKER', 'LESLIE', 671, 7839, '2018-03-01', 22000,NULL, 40);
+insert into employee values(7521,'WARD' ,'CYNTHIA', 670, 7698, '2011-09-16', 12500, 5000, 30);
+insert into employee values(7555,'PETERS' ,'DANIEL', 670 ,7505, '2005-01-11', 12500, 3000, 30);
+insert into employee values(7557,'SHAW' ,'KAREN', 670, 7505,'2018-06-11', 12500 ,12000 ,30);
+insert into employee values(7560,'DUNCAN' ,'SARAH', 670, 7506 ,'2017-02-16', 12500,NULL, 30);
+insert into employee values(7564,'LANGE' ,'GREGORY', 670 ,7506, '2018-02-15', 12500 ,3000, 30);
+insert into employee values(7566,'JONES', 'TERRY', 671, 7839, '2019-03-01', 29750,NULL, 20);
+insert into employee values(7569,'ALBERTS' ,'CHRIS', 671 ,7839,'2012-08-03', 30000,NULL, 20);
+insert into employee values(7600,'PORTER', 'RAYMOND',670 ,7505,'2009-12-29', 12500, 9000, 30);
+insert into employee values(7609,'LEWIS', 'RICHARD', 668, 7507,'2016-10-18', 18000, NULL,40);
+insert into employee values(7654,'MARTIN', 'KENNETH', 670, 7698,'2015-01-12', 12500, 14000, 30);
+insert into employee values(7676,'SOMMERS', 'DENISE', 668, 7507 ,'2012-08-10', 18500,NULL, 40);
+insert into employee values(7698,'BLAKE' ,'MARION', 671, 7839,'2018-06-15',28500,NULL, 30);
+insert into employee values(7782,'CLARK', 'CAROL', 671, 7839,'2020-02-12', 24500,NULL, 10);
+insert into employee values(7788,'SCOTT', 'DONALD', 669, 7566 ,'2015-11-25', 30000,NULL, 20);
+insert into employee values(7789,'WEST', 'LIVIA', 670, 7506,'2018-07-16', 15000, 1000, 30);
+insert into employee values(7799,'FISHER', 'MATTHEW',669, 7569,'2017-02-10',30000,NULL, 20);
+insert into employee values(7820,'ROSS' ,'PAUL', 669 ,7505,'2018-04-15', 13000, 800 ,30);
+insert into employee values(7839,'KING', 'FRANCIS', 672, NULL,'2019-07-01', 50000,NULL, 10);
+insert into employee values(7844,'TURNER', 'MARY', 670, 7698,'2012-09-03', 15000 ,0 ,30);
+insert into employee values(7876,'ADAMS' ,'DIANE', 667, 7788,'2009-11-29', 11000, NULL,20);
+insert into employee values(7900,'JAMES', 'FRED', 667, 7698 ,'2016-02-18', 9500,NULL, 30);
+insert into employee values(7902,'FORD' ,'JENNIFER', 669, 7566,'2015-07-12', 30000,NULL, 20);
+insert into employee values(7916,'ROBERTS', 'GRACE', 669, 7569,'2012-10-10', 28750,NULL, 20);
+insert into employee values(7919,'DOUGLAS', 'MICHAEL', 667 ,7799 ,'2018-11-11', 8000,NULL, 20);
+insert into employee values(7934,'MILLER' ,'BARBARA', 667, 7782,'2015-02-16', 13000, NULL,10); 
+insert into employee values(7950,'JENSEN', 'ALICE' ,667, 7505,'2013-02-15', 7500,NULL, 30);
+insert into employee values(7954,'MURRAY' ,'JAMES', 667, 7506,'2016-03-01', 7500, NULL,30);
+insert into employee values(7369, 'SMITH', 'JOHN', 667, 7902,'2017-08-03', 8000,NULL, 20);
+select * from employee;
+
+set foreign_key_checks=1;
+
+
+
+
+create table new_employee as table employee;
+desc table new_employee;
+select * from new_employee;
+
+
+UPDATE new_employee SET salary= salary + (salary * 10 / 100);
+
+
+update salary_grade set lower_sal=7700, upper_sal=13200 where grade_id=1;
+update salary_grade set lower_sal=13200.01, upper_sal=15400.01 where grade_id=2;
+update salary_grade set lower_sal=15400.01, upper_sal=22000 where grade_id=3;
+update salary_grade set lower_sal=22000.01, upper_sal=33000 where grade_id=4;
+update salary_grade set lower_sal=33000.01, upper_sal=109998.9 where grade_id=5;
+
+
+delete from employee where first_name='SMITH';
+
+
+update salary_grade set lower_sal=10000 where lower_sal<9000;
+
+delete from new_employee;
+select * from new_employee;
+
+
+
+
+
+
+
+select * from department;
+
+desc employee;
+select employee_id, first_name ,hire_date , salary from employee;
+
+select distinct j.funtion from job j, employee e  where j.job_id=e.job_id;
+
+select first_name , salary from employee where salary>2850;
+
+select first_name , department_id from employee where employee_id=7566;
+
+select first_name , salary from employee where salary not between 15000 and 28500;
+
+select e.first_name, j.funtion,e.hire_date from employee e , job j where e.job_id=j.job_id and hire_date between '2010=02=20' and '2012-05-01' order by hire_date;
+
+select first_name , department_id from employee where department_id in (10,30) order by first_name;
+
+select first_name , department_id from employee where salary>2000 and department_id in(10,30);
+
+select first_name , hire_date from employee where year(hire_date) like '%2018%';
+
+select first_name, job_id from employee where manager_id=null;
+
+select first_name, salary, commission from employee where commission is not null order by salary and commission desc;
+
+select first_name from employee where first_name like '__a%';
+
+select first_name from employee where first_name like '%LL%' and (department_id=30 or manager_id=7698);
+
+select first_name,department_id,salary, job_id from employee where job_id=670 or job_id=671 and salary not in (10000,20000,50000) ;
+
+select first_name, last_name,hire_date, salary from employee order by hire_date limit 1;
+
+select first_name, salary from employee order by salary desc limit 3;
+
+
+
+
+
+
+
+select e.first_name,e.department_id,d.dname from employee e ,department d where e.department_id=d.department_id;
+select e.first_name,e.department_id,d.dname from employee e join department d on e.department_id=d.department_id;
+
+select distinct j.funtion from employee e join job j on e.job_id=j.job_id where e.department_id=30;
+select distinct j.funtion from employee e , job j where e.job_id=j.job_id and e.department_id=30;
+
+select e.first_name,d.dname,l.regional_group,e.commission from employee e,department d,location l where e.department_id=d.department_id and d.location=l.location_id and e.commission is not null;
+
+select e.first_name,d.dname from employee e,department d where first_name like '%a%';
+
+select e.first_name,j.funtion,d.dname from employee e,department d,job j ,location where e.department_id=d.department_id and e.job_id=j.job_id and regional_group='DALLAS';
+
+select e.first_name as "Employee" , e.employee_id as "Emp#" , m.first_name as "Manager" , m.employee_id as "Mrg#" from employee e , employee m where e.manager_id=e.employee_id;
+
+select e.first_name as "Employee" , e.employee_id as "Emp#" , m.first_name as "Manager" , m.employee_id as "Mrg" from employee e left outer join employee m on e.manager_id=m.employee_id;  
+
+select e.department_id "department" , e.last_name "Employee" , c.last_name "Colleague" from employee e join employee c on (e.department_id=c.department_id) where e.employee_id<>c.employee_id order by e.department_id,e.last_name,c.last_name;
+
+select e.first_name , e.salary , s.grade_id from employee e, salary_grade s where e.salary between s.lower_sal and s.upper_sal;
+
+select e.last_name,e.hire_date from employee e join employee blake on (blake.last_name="BLAKE")where blake.hire_date<e.hire_date;
+
+select concat(w.first_name,'',w.last_name)as employee ,w.hire_date as 'Emp hire date', m.last_name as manager, m.hire_date as 'Mgr hiredate' from employee w join employee m on(w.manager_id=m.employee_id)where w.hire_date<m.hire_date;
